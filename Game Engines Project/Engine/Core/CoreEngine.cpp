@@ -29,6 +29,7 @@ bool CoreEngine::OnCreate(string name_, int width_, int height_)
 
 void CoreEngine::Run()
 {
+	// Engine Loop
 	while (isRunning)
 	{
 		Update(0.016f);

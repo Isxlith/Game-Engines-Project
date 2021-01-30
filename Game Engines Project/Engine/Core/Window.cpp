@@ -9,6 +9,7 @@ Window::~Window()
 
 bool Window::OnCreate(string name_, int width_, int height_)
 {
+	// Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0)
 	{
 		cout << "Failed to initialize SDL" << endl;
@@ -19,6 +20,7 @@ bool Window::OnCreate(string name_, int width_, int height_)
 
 	SetPreAttributes();
 
+	// Create a window
 	window = SDL_CreateWindow(name_.c_str(), SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, SDL_WINDOW_OPENGL);
 
 	if (!window)
@@ -30,6 +32,7 @@ bool Window::OnCreate(string name_, int width_, int height_)
 	context = SDL_GL_CreateContext(window);
 	SetPostAttributes();
 
+	// Initialize GLEW
 	GLenum err = glewInit();
 	if (err != GLEW_OK)
 	{
