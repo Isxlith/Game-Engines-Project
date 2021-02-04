@@ -1,0 +1,1 @@
+[INFO]: Initialized Window and Game Interface in: CoreEngine.cpp on line: 42

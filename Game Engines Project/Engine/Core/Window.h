@@ -7,6 +7,8 @@
 #include <string>
 #include <iostream>
 
+#include "Debug.h"
+
 using namespace std;
 
 class Window
