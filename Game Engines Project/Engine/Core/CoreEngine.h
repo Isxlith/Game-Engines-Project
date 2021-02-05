@@ -9,7 +9,10 @@
 #include "GameInterface.h"
 #include "Scene.h"
 
+#include "../Rendering/3D/GameObject.h"
+
 using namespace std;
+using namespace glm;
 
 class CoreEngine
 {
