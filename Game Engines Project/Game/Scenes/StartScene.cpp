@@ -7,7 +7,7 @@ StartScene::~StartScene() {}
 bool StartScene::OnCreate()
 {
 	// Swap scenes
-	cout << "Start Scene" << endl;
+	// cout << "Start Scene" << endl;
 	CoreEngine::GetInstance()->SetCurrentScene(1);
 	return true;
 }

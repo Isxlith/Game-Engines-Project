@@ -34,6 +34,8 @@ bool GameScene::OnCreate()
 	v2.pos = vec3(-0.5f, -0.5f, 0.0f);
 	vertexList2.push_back(v2);
 
+	v2.colour = vec3(1.0f, 0.0f, 1.0f);
+
 	Model* model = new Model();
 	model->AddMesh(new Mesh(vertexList));
 	model->AddMesh(new Mesh(vertexList2));
