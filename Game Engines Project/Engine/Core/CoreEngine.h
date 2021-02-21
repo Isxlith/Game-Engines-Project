@@ -10,6 +10,7 @@
 #include "Scene.h"
 
 #include "../Rendering/3D/GameObject.h"
+#include "../Graphics/ShaderHandler.h"
 
 using namespace std;
 using namespace glm;

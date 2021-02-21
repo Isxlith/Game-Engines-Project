@@ -15,30 +15,33 @@ bool GameScene::OnCreate()
 	// Triangle 1
 	Vertex v;
 	vector<Vertex> vertexList;
+	vertexList.reserve(3);
 
 	v.pos = vec3(-0.5f, 0.5f, 0.0f);
+	v.colour = vec3(1.0f, 0.0f, 0.0f);
 	vertexList.push_back(v);
 	v.pos = vec3(0.5f, 0.5f, 0.0f);
+	v.colour = vec3(0.0f, 1.0f, 0.0f);
 	vertexList.push_back(v);
 	v.pos = vec3(-0.5f, -0.5f, 0.0f);
+	v.colour = vec3(0.0f, 0.0f, 1.0f);
 	vertexList.push_back(v);
 
-	// Triagle 2
-	Vertex v2;
-	vector<Vertex> vertexList2;
-
-	v2.pos = vec3(0.5f, -0.5f, 0.0f);
-	vertexList2.push_back(v2);
-	v2.pos = vec3(0.5f, 0.5f, 0.0f);
-	vertexList2.push_back(v2);
-	v2.pos = vec3(-0.5f, -0.5f, 0.0f);
-	vertexList2.push_back(v2);
-
-	v2.colour = vec3(1.0f, 0.0f, 1.0f);
-
-	Model* model = new Model();
+	Model* model = new Model(ShaderHandler::GetInstance()->GetShader("colourShader"));
 	model->AddMesh(new Mesh(vertexList));
-	model->AddMesh(new Mesh(vertexList2));
+
+	// Triagle 2
+	v.pos = vec3(0.5f, -0.5f, 0.0f);
+	v.colour = vec3(1.0f, 0.0f, 0.0f);
+	vertexList.push_back(v);
+	v.pos = vec3(0.5f, 0.5f, 0.0f);
+	v.colour = vec3(0.0f, 1.0f, 0.0f);
+	vertexList.push_back(v);
+	v.pos = vec3(-0.5f, -0.5f, 0.0f);
+	v.colour = vec3(0.0f, 0.0f, 1.0f);
+	vertexList.push_back(v);
+
+	model->AddMesh(new Mesh(vertexList));
 	shape = new GameObject(model);
 
 	return true;

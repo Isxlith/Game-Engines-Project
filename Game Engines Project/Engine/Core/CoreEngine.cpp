@@ -28,6 +28,8 @@ bool CoreEngine::OnCreate(string name_, int width_, int height_)
 		return isRunning = false;
 	}
 
+	ShaderHandler::GetInstance()->CreateProgram("colourShader", "Engine/Shaders/ColourVertexShader.glsl", "Engine/Shaders/ColourFragmentShader.glsl");
+
 	// Creates the game interface if the variable isn't nullptr
 	if (gameInterface)
 	{
@@ -86,6 +88,8 @@ void CoreEngine::Render()
 
 void CoreEngine::OnDestroy()
 {
+	ShaderHandler::GetInstance()->OnDestroy();
+
 	delete gameInterface;
 	gameInterface = nullptr;
 
