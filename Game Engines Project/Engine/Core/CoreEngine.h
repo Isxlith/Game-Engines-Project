@@ -11,6 +11,7 @@
 
 #include "../Rendering/3D/GameObject.h"
 #include "../Graphics/ShaderHandler.h"
+#include "../Camera/Camera.h"
 
 using namespace std;
 using namespace glm;
@@ -31,9 +32,13 @@ public:
 
 	inline bool GetIsRunning() const { return isRunning; };
 	inline int GetCurrentScene() const { return currentSceneNum; };
+	inline float GetScreenWidth() const { return static_cast<float>(window->GetWidth()); };
+	inline float GetScreenHeight() const { return static_cast<float>(window->GetHeight()); };
+	inline Camera* GetCamera() const { return camera; };
 
 	void SetGameInterface(GameInterface* gameInterface_);
 	void SetCurrentScene(int sceneNum_);
+	void SetCamera(Camera* camera_);
 
 private:
 	CoreEngine();
@@ -54,6 +59,8 @@ private:
 	GameInterface* gameInterface;
 
 	int currentSceneNum;
+
+	Camera* camera;
 };
 
 #endif

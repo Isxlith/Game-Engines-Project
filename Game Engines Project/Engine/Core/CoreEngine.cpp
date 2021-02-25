@@ -95,6 +95,10 @@ void CoreEngine::OnDestroy()
 
 	delete window;
 	window = nullptr;
+
+	delete camera;
+	camera = nullptr;
+
 	SDL_Quit();
 	exit(0);
 }
@@ -107,4 +111,9 @@ void CoreEngine::SetGameInterface(GameInterface* gameInterface_)
 void CoreEngine::SetCurrentScene(int sceneNum_)
 {
 	currentSceneNum = sceneNum_;
+}
+
+void CoreEngine::SetCamera(Camera* camera_)
+{
+	camera = camera_;
 }

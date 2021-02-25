@@ -1,2 +1,2 @@
 [INFO]: Initialized Window and Game Interface in: CoreEngine.cpp on line: 44
-[INFO]: Creating GameScene in: GameScene.cpp on line: 13
+[INFO]: Creating GameScene in: GameScene.cpp on line: 15
