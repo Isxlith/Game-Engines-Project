@@ -75,5 +75,5 @@ void Mesh::GenerateBuffers()
 	ambient = glGetUniformLocation(shaderProgram, "light.ambient");
 	diffuse = glGetUniformLocation(shaderProgram, "light.diffuse");
 	specular = glGetUniformLocation(shaderProgram, "light.specular");
-	lightColour = glGetUniformLocation(shaderProgram, "light.lightColour");
+	lightColour = glGetUniformLocation(shaderProgram, "light.lightColor");
 }
