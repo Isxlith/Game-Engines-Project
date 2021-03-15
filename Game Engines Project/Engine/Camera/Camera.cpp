@@ -2,6 +2,8 @@
 
 #include "../Core/CoreEngine.h"
 
+//vector<LightSource*> Camera::lightSources = vector<LightSource*>();
+
 Camera::Camera() : pos(vec3()), fieldOfView(0.0f), forward(vec3()), up(vec3()), right(vec3()), worldUp(vec3()), nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f), perspective(mat4()), ortho(mat4()), view(mat4())
 {
 	fieldOfView = 45.0f;
@@ -19,7 +21,18 @@ Camera::Camera() : pos(vec3()), fieldOfView(0.0f), forward(vec3()), up(vec3()), 
 	UpdateCameraVectors();
 }
 
-Camera::~Camera() {}
+Camera::~Camera()
+{
+	if (lightSources.size() > 0)
+	{
+		for (auto t : lightSources)
+		{
+			delete t;
+			t = nullptr;
+		}
+		lightSources.clear();
+	}
+}
 
 void Camera::SetPos(vec3 pos_)
 {
@@ -44,4 +57,10 @@ void Camera::UpdateCameraVectors()
 	right = normalize(cross(forward, worldUp));
 	up = normalize(cross(right, forward));
 	view = lookAt(pos, pos + forward, up);
+}
+
+void Camera::addLightSource(vec3 pos_, float ambient_, float diffuse_, float specular_, vec3 colour_)
+{
+	LightSource* light = new LightSource(pos_, ambient_, diffuse_, specular_, colour_);
+	lightSources.push_back(light);
 }
