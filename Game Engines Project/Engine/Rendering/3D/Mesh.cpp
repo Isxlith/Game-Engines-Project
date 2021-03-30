@@ -1,9 +1,8 @@
 #include "Mesh.h"
 
-Mesh::Mesh(vector<Vertex>& vertexList_, GLuint textureID_, GLuint shaderProgram_) : VAO(0), VBO(0), vertexList(vector<Vertex>()), shaderProgram(0), textureID(0), modelLocation(0), viewLocation(0), projectionLocation(0), textureLocation(0)
+Mesh::Mesh(SubMesh& subMesh_, GLuint shaderProgram_) : VAO(0), VBO(0), shaderProgram(0), modelLocation(0), viewLocation(0), projectionLocation(0), textureLocation(0), cameraPos(0), lightPos(0), ambient(0), diffuse(0), specular(0), lightColour(0)
 {
-	vertexList = vertexList_;
-	textureID = textureID_;
+	subMesh = subMesh_;
 	shaderProgram = shaderProgram_;
 	GenerateBuffers();
 }
@@ -12,14 +11,23 @@ Mesh::~Mesh()
 {
 	glDeleteVertexArrays(1, &VAO);
 	glDeleteBuffers(1, &VBO);
-	vertexList.clear();
+	
+	if (subMesh.vertexList.size() > 0)
+	{
+		subMesh.vertexList.clear();
+	}
+
+	if (subMesh.meshIndices.size() > 0)
+	{
+		subMesh.meshIndices.clear();
+	}
 }
 
-void Mesh::Render(Camera* camera_, mat4 transform_)
+void Mesh::Render(Camera* camera_, vector<mat4>& instances_)
 {
 	glUniform1i(textureLocation, 0);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, textureID);
+	glBindTexture(GL_TEXTURE_2D, subMesh.textureID);
 
 	glUniformMatrix4fv(viewLocation, 1, GL_FALSE, value_ptr(camera_->GetView()));
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(camera_->GetPerspective()));
@@ -30,12 +38,18 @@ void Mesh::Render(Camera* camera_, mat4 transform_)
 	glUniform1f(diffuse, camera_->listLightSources()[0]->GetDiffuse());
 	glUniform1f(specular, camera_->listLightSources()[0]->GetSpecular());
 	glUniform3fv(lightColour, 1, value_ptr(camera_->listLightSources()[0]->GetColour()));
-
+	
 	glBindVertexArray(VAO);
 	glEnable(GL_DEPTH_TEST);
-	glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(transform_));
-	glDrawArrays(GL_TRIANGLES, 0, vertexList.size());
+
+	for (int i = 0; i < instances_.size(); i++)
+	{
+		glUniformMatrix4fv(modelLocation, 1, GL_FALSE, value_ptr(instances_[i]));
+		glDrawArrays(GL_TRIANGLES, 0, subMesh.vertexList.size());
+	}
+
 	glBindVertexArray(0);
+	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void Mesh::GenerateBuffers()
@@ -44,7 +58,7 @@ void Mesh::GenerateBuffers()
 	glGenBuffers(1, &VBO);
 	glBindVertexArray(VAO);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-	glBufferData(GL_ARRAY_BUFFER, vertexList.size() * sizeof(Vertex), &vertexList[0], GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, subMesh.vertexList.size() * sizeof(Vertex), &subMesh.vertexList[0], GL_STATIC_DRAW);
 
 	// Position
 	glEnableVertexAttribArray(0);

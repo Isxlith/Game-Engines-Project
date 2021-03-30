@@ -49,7 +49,7 @@ void TextureHandler::CreateTexture(const string& textureName_, const string& tex
 
 	if (surface == nullptr)
 	{
-		Debug::Error("Surface for texture " + textureName_ + "failed to be created", "TextureHandler.cpp", __LINE__);
+		Debug::Error("Surface for texture " + textureName_ + " failed to be created", "TextureHandler.cpp", __LINE__);
 		delete t;
 		t = nullptr;
 		return;

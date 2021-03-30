@@ -70,7 +70,6 @@ void CoreEngine::Update(const float deltaTime_)
 	if (gameInterface)
 	{
 		gameInterface->Update(deltaTime_);
-		cout << deltaTime_ << endl;
 	}
 }
 

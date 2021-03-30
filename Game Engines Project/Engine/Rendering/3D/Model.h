@@ -1,8 +1,10 @@
 #ifndef MODEL_H
 #define MODEL_H
 
-#include "Mesh.h"
 #include <glm/gtc/matrix_transform.hpp>
+#include <string>
+
+#include "LoadOBJModel.h"
 
 using namespace std;
 using namespace glm;
@@ -10,31 +12,23 @@ using namespace glm;
 class Model
 {
 public:
-	Model(GLuint shaderProgram_, vec3 pos_ = vec3(), float angle_ = 0.0f, vec3 rotation_ = vec3(0.0f, 1.0f, 0.0f), vec3 scale_ = vec3(1.0f));
+	Model(const string& objPath_, const string& matPath_, GLuint shaderProgram_);
 	~Model();
 
 	void Render(Camera* camera_);
 	void AddMesh(Mesh* mesh_);
-
-	inline vec3 GetPos() const { return pos; };
-	inline float GetAngle() const { return angle; };
-	inline vec3 GetRotation() const { return rotation; };
-	inline vec3 GetScale() const { return scale; };
-
-	void SetPos(vec3 pos_);
-	void SetAngle(float angle_);
-	void SetRotation(vec3 rotation_);
-	void SetScale(vec3 scale_);
+	unsigned int CreateInstance(vec3 pos_, float angle_, vec3 rotation_, vec3 scale_);
+	void UpdateInstance(unsigned int index_, vec3 pos_, float angle_, vec3 rotation_, vec3 scale_);
+	mat4 GetTransform(unsigned int index_) const;
 
 private:
+	mat4 CreateTransform(vec3 pos_, float angle_, vec3 rotation_, vec3 scale_) const;
+	void LoadModel();
+
 	vector<Mesh*> meshes;
 	GLuint shaderProgram;
-
-	vec3 pos;
-	float angle;
-	vec3 rotation;
-	vec3 scale;
-	mat4 GetTransform() const;
+	vector<mat4> modelInstances;
+	LoadOBJModel* obj;
 };
 
 #endif
