@@ -79,34 +79,21 @@ void LoadOBJModel::LoadModel(const string& filePath_)
 		// Face Data
 		else if (line.substr(0, 2) == "f ")
 		{
-			stringstream f(line.substr(2));
-			int set1, set2, set3;
+			stringstream f;
+			unsigned int index[3], texCoord[3], norm[3];
 			int counter = 0;
 
-			f >> set1 >> set2 >> set3;
-			cout << set1 << endl;
+			string str = line.substr(2);
+			for (int i = 0; i < 6; i++)
+			{
+				str.replace(str.find("/"), 1, " ");
+			}
+			cout << str << endl;
 
-			//while (getline(f1, segment, '/'))
-			//{
-			//	//cout << segment << endl;
-			//	if (counter == 0)
-			//	{
-			//		cout << "Index "<< segment << endl;
-			//		counter++;
-			//	}
-			//	else if (counter == 1)
-			//	{
-			//		cout << "Texture " << segment << endl;
-			//		counter++;
-			//	}
-			//	else if (counter == 2)
-			//	{
-			//		cout << "Normal " << segment << endl;
-			//		counter = 0;
-			//	}
-			//}
+			f << str;
+			f >> index[0] >> texCoord[0] >> norm[0] >> index[1] >> texCoord[1] >> norm[1] >> index[2] >> texCoord[2] >> norm[2];
 
-			/*indices.push_back(index[0]);
+			indices.push_back(index[0]);
 			indices.push_back(index[1]);
 			indices.push_back(index[2]);
 			textureIndices.push_back(texCoord[0]);
@@ -114,7 +101,7 @@ void LoadOBJModel::LoadModel(const string& filePath_)
 			textureIndices.push_back(texCoord[2]);
 			normalIndices.push_back(norm[0]);
 			normalIndices.push_back(norm[1]);
-			normalIndices.push_back(norm[2]);*/
+			normalIndices.push_back(norm[2]);
 		}
 
 		else if (line.substr(0, 7) == "usemtl ")
