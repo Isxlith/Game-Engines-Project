@@ -81,27 +81,25 @@ void LoadOBJModel::LoadModel(const string& filePath_)
 		{
 			stringstream f;
 			unsigned int index[3], texCoord[3], norm[3];
-			int counter = 0;
-
 			string str = line.substr(2);
+
 			for (int i = 0; i < 6; i++)
 			{
 				str.replace(str.find("/"), 1, " ");
 			}
-			cout << str << endl;
 
 			f << str;
 			f >> index[0] >> texCoord[0] >> norm[0] >> index[1] >> texCoord[1] >> norm[1] >> index[2] >> texCoord[2] >> norm[2];
 
-			indices.push_back(index[0]);
-			indices.push_back(index[1]);
-			indices.push_back(index[2]);
-			textureIndices.push_back(texCoord[0]);
-			textureIndices.push_back(texCoord[1]);
-			textureIndices.push_back(texCoord[2]);
-			normalIndices.push_back(norm[0]);
-			normalIndices.push_back(norm[1]);
-			normalIndices.push_back(norm[2]);
+			indices.push_back(index[0] - 1);
+			indices.push_back(index[1] - 1);
+			indices.push_back(index[2] - 1);
+			textureIndices.push_back(texCoord[0] - 1);
+			textureIndices.push_back(texCoord[1] - 1);
+			textureIndices.push_back(texCoord[2] - 1);
+			normalIndices.push_back(norm[0] - 1);
+			normalIndices.push_back(norm[1] - 1);
+			normalIndices.push_back(norm[2] - 1);
 		}
 
 		else if (line.substr(0, 7) == "usemtl ")
