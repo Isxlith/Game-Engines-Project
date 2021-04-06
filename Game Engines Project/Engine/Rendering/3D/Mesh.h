@@ -7,6 +7,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include "../../Camera/Camera.h"
+#include "../../Graphics/MaterialHandler.h"
 
 using namespace std;
 using namespace glm;
@@ -16,14 +17,13 @@ struct Vertex
 	vec3 pos;
 	vec3 normal;
 	vec2 textureCoords;
-	vec3 colour;
 };
 
 struct SubMesh
 {
 	vector<Vertex> vertexList;
 	vector<unsigned int> meshIndices;
-	GLuint textureID;
+	Material material;
 };
 
 class Mesh
@@ -39,9 +39,11 @@ private:
 	GLuint VAO, VBO;
 	SubMesh subMesh;
 	GLuint shaderProgram;
-	GLuint modelLocation, viewLocation, projectionLocation, textureLocation;
+	GLuint modelLocation, viewLocation, projectionLocation;
 
 	GLuint cameraPos, lightPos, ambient, diffuse, specular, lightColour;
+
+	GLuint diffuseMap, matShininess, matTransparency, matAmbient, matDiffuse, matSpecular;
 };
 
 #endif

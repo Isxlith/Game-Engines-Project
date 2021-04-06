@@ -19,11 +19,13 @@ public:
 	inline float GetAngle() const { return angle; };
 	inline vec3 GetRotation() const { return rotation; };
 	inline vec3 GetScale() const { return scale; };
+	inline string GetTag() const { return tag; };
 
 	void SetPos(vec3 pos_);
 	void SetAngle(float angle_);
 	void SetRotation(vec3 rotation_);
 	void SetScale(vec3 scale_);
+	void SetTag(string tag_);
 
 private:
 	Model* model;
@@ -32,6 +34,7 @@ private:
 	float angle;
 	vec3 rotation;
 	vec3 scale;
+	string tag;
 };
 
 #endif

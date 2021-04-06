@@ -21,10 +21,6 @@ GameObject::GameObject(Model* model_, vec3 pos_) : model(nullptr), pos(vec3()), 
 
 GameObject::~GameObject()
 {
-	if (model)
-	{
-		delete model;
-	}
 	model = nullptr;
 }
 
@@ -75,4 +71,9 @@ void GameObject::SetScale(vec3 scale_)
 	{
 		model->UpdateInstance(modelInstance, pos, angle, rotation, scale);
 	}
+}
+
+void GameObject::SetTag(string tag_)
+{
+	tag = tag_;
 }

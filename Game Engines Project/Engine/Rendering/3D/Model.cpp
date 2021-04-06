@@ -54,11 +54,6 @@ void Model::UpdateInstance(unsigned int index_, vec3 pos_, float angle_, vec3 ro
 	modelInstances[index_] = CreateTransform(pos_, angle_, rotation_, scale_);
 }
 
-mat4 Model::GetTransform(unsigned int index_) const
-{
-	return modelInstances[index_];
-}
-
 mat4 Model::CreateTransform(vec3 pos_, float angle_, vec3 rotation_, vec3 scale_) const
 {
 	mat4 model;
