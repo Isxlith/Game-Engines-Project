@@ -2,8 +2,6 @@
 
 #include "../Core/CoreEngine.h"
 
-//vector<LightSource*> Camera::lightSources = vector<LightSource*>();
-
 Camera::Camera() : pos(vec3()), fieldOfView(0.0f), forward(vec3()), up(vec3()), right(vec3()), worldUp(vec3()), nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f), perspective(mat4()), ortho(mat4()), view(mat4())
 {
 	fieldOfView = 45.0f;
@@ -63,4 +61,41 @@ void Camera::addLightSource(vec3 pos_, float ambient_, float diffuse_, float spe
 {
 	LightSource* light = new LightSource(pos_, ambient_, diffuse_, specular_, colour_);
 	lightSources.push_back(light);
+}
+
+void Camera::ProcessMouseMovement(vec2 offset_)
+{
+	offset_ *= 0.05f;
+
+	yaw += offset_.x;
+	pitch -= offset_.y;
+
+	if (pitch > 89.0f)
+	{
+		pitch = 89.0f;
+	}
+	if (pitch < -89.0f)
+	{
+		pitch = -89.0f;
+	}
+
+	if (yaw < 0.0f)
+	{
+		yaw += 360.0f;
+	}
+	if (yaw > 360.0f)
+	{
+		yaw -= 360.0f;
+	}
+	UpdateCameraVectors();
+}
+
+void Camera::ProcessMouseZoom(int y_)
+{
+	if (y_ < 0 || y_ > 0)
+	{
+		pos += static_cast<float>(y_) * (forward * 2.0f);
+	}
+
+	UpdateCameraVectors();
 }

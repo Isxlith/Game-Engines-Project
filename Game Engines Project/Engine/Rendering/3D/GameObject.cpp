@@ -1,14 +1,5 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Model* model_) : model(nullptr), pos(vec3()), angle(0.0f), rotation(vec3(0.0f, 1.0f, 0.0f)), scale(vec3(1.0f)), modelInstance(0)
-{
-	model = model_;
-	if (model)
-	{
-		modelInstance = model->CreateInstance(pos, angle, rotation, scale);
-	}
-}
-
 GameObject::GameObject(Model* model_, vec3 pos_) : model(nullptr), pos(vec3()), angle(0.0f), rotation(vec3(0.0f, 1.0f, 0.0f)), scale(vec3(1.0f)), modelInstance(0)
 {
 	model = model_;
@@ -16,6 +7,10 @@ GameObject::GameObject(Model* model_, vec3 pos_) : model(nullptr), pos(vec3()), 
 	if (model)
 	{
 		modelInstance = model->CreateInstance(pos, angle, rotation, scale);
+		boundingBox = model->GetBoundingBox();
+		boundingBox.transform = model->GetTransform(modelInstance);
+
+		cout << "Min: " << to_string(boundingBox.minVert) << ", Max: " << to_string(boundingBox.maxVert) << endl;
 	}
 }
 
@@ -43,6 +38,7 @@ void GameObject::SetPos(vec3 pos_)
 	if (model)
 	{
 		model->UpdateInstance(modelInstance, pos, angle, rotation, scale);
+		boundingBox.transform = model->GetTransform(modelInstance);
 	}
 }
 
@@ -52,6 +48,7 @@ void GameObject::SetAngle(float angle_)
 	if (model)
 	{
 		model->UpdateInstance(modelInstance, pos, angle, rotation, scale);
+		boundingBox.transform = model->GetTransform(modelInstance);
 	}
 }
 
@@ -61,6 +58,7 @@ void GameObject::SetRotation(vec3 rotation_)
 	if (model)
 	{
 		model->UpdateInstance(modelInstance, pos, angle, rotation, scale);
+		boundingBox.transform = model->GetTransform(modelInstance);
 	}
 }
 
@@ -70,6 +68,9 @@ void GameObject::SetScale(vec3 scale_)
 	if (model)
 	{
 		model->UpdateInstance(modelInstance, pos, angle, rotation, scale);
+		boundingBox.transform = model->GetTransform(modelInstance);
+		boundingBox.minVert *= scale.x > 1.0f ? scale : (scale / 2.0f);
+		boundingBox.maxVert *= scale.x > 1.0f ? scale : (scale / 2.0f);
 	}
 }
 

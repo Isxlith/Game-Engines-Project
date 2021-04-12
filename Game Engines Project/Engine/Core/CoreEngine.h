@@ -11,10 +11,14 @@
 
 #include "../Rendering/SceneGraph.h"
 #include "../Rendering/3D/GameObject.h"
+
 #include "../Graphics/ShaderHandler.h"
 #include "../Graphics/TextureHandler.h"
 #include "../Graphics/MaterialHandler.h"
+
 #include "../Camera/Camera.h"
+
+#include "../Events/EventListener.h"
 
 using namespace std;
 using namespace glm;
@@ -42,6 +46,11 @@ public:
 	void SetGameInterface(GameInterface* gameInterface_);
 	void SetCurrentScene(int sceneNum_);
 	void SetCamera(Camera* camera_);
+
+	void NotifyOfMousePressed(ivec2 mouse_, int buttonType_);
+	void NotifyOfMouseReleased(ivec2 mouse_, int buttonType_);
+	void NotifyOfMouseMove(ivec2 mouse_);
+	void NotifyOfMouseScroll(int y_);
 
 private:
 	CoreEngine();

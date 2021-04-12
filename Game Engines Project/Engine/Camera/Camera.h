@@ -19,14 +19,16 @@ public:
 	void SetPos(vec3 pos_);
 	void SetRotation(float yaw_, float pitch_);
 
-	void addLightSource(vec3 pos_, float ambient_, float diffuse_, float specular_, vec3 colour_);
-	
-	inline vector<LightSource*> listLightSources() { return lightSources; };
-
 	inline mat4 GetView() const { return view; };
 	inline mat4 GetPerspective() const { return perspective; };
 	inline mat4 GetOrtho() const { return ortho; };
-	inline vec3 getPos() const { return pos; };
+	inline vec3 GetPos() const { return pos; };
+
+	void addLightSource(vec3 pos_, float ambient_, float diffuse_, float specular_, vec3 colour_);
+	inline vector<LightSource*> listLightSources() { return lightSources; };
+
+	void ProcessMouseMovement(vec2 offset_);
+	void ProcessMouseZoom(int y_);
 
 private:
 	void UpdateCameraVectors();

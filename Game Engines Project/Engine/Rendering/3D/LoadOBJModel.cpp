@@ -56,6 +56,36 @@ void LoadOBJModel::LoadModel(const string& filePath_)
 			float x, y, z;
 			v >> x >> y >> z;
 			vertices.push_back(vec3(x, y, z));
+
+			if (x > boundingBox.maxVert.x)
+			{
+				boundingBox.maxVert.x = x;
+			}
+
+			if (y > boundingBox.maxVert.y)
+			{
+				boundingBox.maxVert.y = y;
+			}
+
+			if (z > boundingBox.maxVert.z)
+			{
+				boundingBox.maxVert.z = z;
+			}
+
+			if (x < boundingBox.minVert.x)
+			{
+				boundingBox.minVert.x = x;
+			}
+
+			if (y < boundingBox.minVert.y)
+			{
+				boundingBox.minVert.y = y;
+			}
+
+			if (z < boundingBox.minVert.z)
+			{
+				boundingBox.minVert.z = z;
+			}
 		}
 
 		// Normal Data
