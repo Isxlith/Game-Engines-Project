@@ -46,6 +46,8 @@ void LoadOBJModel::LoadModel(const string& filePath_)
 	}
 
 	string line;
+	boundingBox.maxVert = vec3(-1000.0f);
+	boundingBox.minVert = vec3(1000.0f);
 
 	while (getline(in, line))
 	{

@@ -33,7 +33,7 @@ void Mesh::Render(Camera* camera_, vector<mat4>& instances_)
 	glUniformMatrix4fv(projectionLocation, 1, GL_FALSE, value_ptr(camera_->GetPerspective()));
 
 	// Light Uniforms
-	glUniform3fv(cameraPos, 1, value_ptr(camera_->getPos()));
+	glUniform3fv(cameraPos, 1, value_ptr(camera_->GetPos()));
 	glUniform3fv(lightPos, 1, value_ptr(camera_->listLightSources()[0]->GetPos()));
 	glUniform1f(ambient, camera_->listLightSources()[0]->GetAmbient());
 	glUniform1f(diffuse, camera_->listLightSources()[0]->GetDiffuse());

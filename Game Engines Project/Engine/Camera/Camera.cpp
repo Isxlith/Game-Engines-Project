@@ -2,7 +2,7 @@
 
 #include "../Core/CoreEngine.h"
 
-Camera::Camera() : pos(vec3()), fieldOfView(0.0f), forward(vec3()), up(vec3()), right(vec3()), worldUp(vec3()), nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f), perspective(mat4()), ortho(mat4()), view(mat4())
+Camera::Camera() : pos(vec3()), fieldOfView(0.0f), forward(vec3()), up(vec3()), right(vec3()), worldUp(vec3()), nearPlane(0.0f), farPlane(0.0f), yaw(0.0f), pitch(0.0f), perspective(mat4()), ortho(mat4()), view(mat4()), projection(mat4())
 {
 	fieldOfView = 45.0f;
 	forward = vec3(0.0f, 0.0f, -1.0f);
@@ -15,6 +15,8 @@ Camera::Camera() : pos(vec3()), fieldOfView(0.0f), forward(vec3()), up(vec3()), 
 
 	perspective = glm::perspective(fieldOfView, CoreEngine::GetInstance()->GetScreenWidth() / CoreEngine::GetInstance()->GetScreenHeight(), nearPlane, farPlane);
 	ortho = glm::ortho(0.0f, CoreEngine::GetInstance()->GetScreenWidth(), 0.0f, CoreEngine::GetInstance()->GetScreenHeight(), -1.0f, 1.0f);
+
+	projection = perspective * view;
 
 	UpdateCameraVectors();
 }

@@ -1,6 +1,6 @@
 #include "GameObject.h"
 
-GameObject::GameObject(Model* model_, vec3 pos_) : model(nullptr), pos(vec3()), angle(0.0f), rotation(vec3(0.0f, 1.0f, 0.0f)), scale(vec3(1.0f)), modelInstance(0)
+GameObject::GameObject(Model* model_, vec3 pos_) : model(nullptr), pos(vec3()), angle(0.0f), rotation(vec3(0.0f, 1.0f, 0.0f)), scale(vec3(1.0f)), modelInstance(0), hit(false)
 {
 	model = model_;
 	pos = pos_;
@@ -77,4 +77,13 @@ void GameObject::SetScale(vec3 scale_)
 void GameObject::SetTag(string tag_)
 {
 	tag = tag_;
+}
+
+void GameObject::SetHit(bool hit_, int buttonType_)
+{
+	hit = hit_;
+	if (hit)
+	{
+		cout << tag << " was hit" << endl;
+	}
 }
