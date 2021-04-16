@@ -13,7 +13,7 @@ Ray CollisionDetection::MousePosToWorldRay(vec2 mouseCoords_, float screenWidth_
 	rayStartWorld /= rayStartWorld.w;
 
 	vec4 rayEndWorld = inverse * rayEndNDC;
-	rayEndNDC /= rayEndNDC.w;
+	rayEndWorld /= rayEndWorld.w;
 
 	vec3 rayDirWorld(rayEndWorld - rayStartWorld);
 	rayDirWorld = normalize(rayDirWorld);
