@@ -12,6 +12,7 @@ struct Plane
 
 struct Frustum
 {
+	
 	Plane planes[6];
 
 	void MakeFrustum(mat4 projMat_);
