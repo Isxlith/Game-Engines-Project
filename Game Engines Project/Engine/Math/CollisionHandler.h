@@ -3,6 +3,7 @@
 
 #include "Ray.h"
 #include "../Rendering/3D/GameObject.h"
+#include "../Core/OctSpacialPartition.h"
 
 class CollisionHandler
 {
@@ -14,7 +15,7 @@ public:
 
 	static CollisionHandler* GetInstance();
 
-	void OnCreate();
+	void OnCreate(float worldSize_);
 	void AddObject(GameObject* go_);
 	void MouseUpdate(vec2 mousePosition_, int buttonType_);
 	void OnDestroy();
@@ -26,8 +27,9 @@ private:
 	static unique_ptr<CollisionHandler> collisionInstance;
 	friend default_delete<CollisionHandler>;
 
-	static vector<GameObject*> colliders;
+	//static vector<GameObject*> colliders;
 	static vector<GameObject*> prevCollisions;
+	static OctSpacialPartition* scenePartition;
 };
 
 #endif
