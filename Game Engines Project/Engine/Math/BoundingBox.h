@@ -35,7 +35,7 @@ struct BoundingBox
 		vec3 otherMinCorner = GetTransformedPoint(box_->minVert, box_->transform);
 		vec3 otherMaxCorner = GetTransformedPoint(box_->maxVert, box_->transform);
 
-		if ((minCorner.x <= otherMinCorner.x && maxCorner.x >= maxCorner.x) && (minCorner.y <= otherMinCorner.y && maxCorner.y >= otherMaxCorner.y) && (minCorner.z <= otherMinCorner.z && maxCorner.z >= otherMaxCorner.z))
+		if ((minCorner.x <= otherMaxCorner.x && maxCorner.x >= minCorner.x) && (minCorner.y <= otherMaxCorner.y && maxCorner.y >= otherMinCorner.y) && (minCorner.z <= otherMaxCorner.z && maxCorner.z >= otherMinCorner.z))
 		{
 			std::cout << "Collided" << std::endl;
 			return true;
