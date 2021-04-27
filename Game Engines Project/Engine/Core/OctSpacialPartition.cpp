@@ -147,20 +147,42 @@ GameObject* OctSpacialPartition::GetCollision(Ray ray_)
 			return result;
 		}
 	}
+
+	return nullptr;
 }
 
 void OctSpacialPartition::AddObjectToCell(OctNode* cell_, GameObject* obj_)
 {
-	if (cell_->GetBoundingBox()->Intersects(&obj_->GetBoundingBox()) && cell_->IsLeaf())
+	if (cell_->IsLeaf() == true)
 	{
-		cell_->objectList.push_back(obj_);
+		if (cell_->GetBoundingBox()->Intersects(&obj_->GetBoundingBox()))
+		{
+			cell_->objectList.push_back(obj_);
+		}
+	}
+	else if (cell_->IsLeaf() == false)
+	{
+		for (int i = 0; i < cell_->childNum; i++)
+		{
+			AddObjectToCell(cell_->children[i], obj_);
+		}
 	}
 }
 
 void OctSpacialPartition::PrepareCollisionQuery(OctNode* cell_, Ray ray_)
 {
-	if (ray_.IsColliding(cell_->GetBoundingBox()) && cell_->IsLeaf())
+	if (cell_->IsLeaf() == true)
 	{
-		rayIntersectionList.push_back(cell_);
+		if (ray_.IsColliding(cell_->GetBoundingBox()))
+		{
+			rayIntersectionList.push_back(cell_);
+		}
+	}
+	else if (cell_->IsLeaf() == false)
+	{
+		for (int i = 0; i < cell_->childNum; i++)
+		{
+			PrepareCollisionQuery(cell_->children[i], ray_);
+		}
 	}
 }
